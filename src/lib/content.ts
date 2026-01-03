@@ -24,6 +24,7 @@ export {
   getNonWeeklyPosts,
   getNonWeeklyPostsBySticky,
   getPostCount,
+  getPostCover,
   getPostDescription,
   getPostDescriptionWithSummary,
   getPostLastCategory,

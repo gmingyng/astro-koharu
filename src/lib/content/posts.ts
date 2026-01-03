@@ -5,13 +5,34 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 
 import summaries from '@assets/summaries.json';
-import { siteConfig } from '@constants/site-config';
+import { defaultCoverList, siteConfig } from '@constants/site-config';
 import type { BlogPost } from 'types/blog';
 import { extractTextFromMarkdown } from '../sanitize';
 import { buildCategoryPath } from './categories';
 
 /** AI 摘要数据类型 */
 type SummariesData = Record<string, { title: string; summary: string }>;
+
+/**
+ * 获取文章封面图
+ * 优先级：frontmatter cover > 基于 slug 生成的确定性随机封面
+ * @param post 文章对象
+ * @returns 封面图链接
+ */
+export function getPostCover(post: BlogPost): string {
+  const { cover } = post.data;
+  if (cover) return cover;
+
+  const slug = post.data.link ?? post.slug;
+  // 简单的字符串哈希函数，确保同一个 slug 总是得到同一个封面
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash << 5) - hash + slug.charCodeAt(i);
+    hash |= 0; // 转换为 32 位整数
+  }
+  const index = Math.abs(hash) % defaultCoverList.length;
+  return defaultCoverList[index];
+}
 
 /**
  * 获取文章描述

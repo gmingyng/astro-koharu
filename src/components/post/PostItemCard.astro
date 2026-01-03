@@ -3,8 +3,7 @@
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { Routes } from '@constants/router';
-import { defaultCoverList } from '@constants/site-config';
-import { buildCategoryPath, getCategoryArr, getPostDescriptionWithSummary } from '@lib/content';
+import { buildCategoryPath, getCategoryArr, getPostCover, getPostDescriptionWithSummary } from '@lib/content';
 import { getLqipProps } from '@lib/lqip';
 import { routeBuilder } from '@lib/route';
 import { cn } from '@lib/utils';
@@ -16,14 +15,12 @@ import type { BlogPost } from 'types/blog';
 export interface PostItemCardProps {
   data: BlogPost;
   leftClip?: boolean;
-  randomCover: string;
   showTags?: boolean;
   hideCover?: boolean; // 隐藏图片，让内容铺满
   isSimple?: boolean; // 是否简单模式
 }
 
 const {
-  randomCover,
   data,
   leftClip = true,
   hideCover: hideCoverProp,
@@ -34,11 +31,11 @@ const {
 const showTags = showTagsProp ?? !isSimple;
 const hideCover = hideCoverProp ?? isSimple;
 
-const { cover, date, catalog, categories, title, draft } = data?.data ?? {};
+const { date, catalog, categories, title, draft } = data?.data ?? {};
 const { body } = data ?? {};
 
 const readState = readingTime(body ?? '');
-const finalCover = cover ?? randomCover ?? defaultCoverList[0];
+const finalCover = getPostCover(data);
 const href = routeBuilder(Routes.Post, data as BlogPost);
 const isDraft = import.meta.env.DEV && draft === true;
 

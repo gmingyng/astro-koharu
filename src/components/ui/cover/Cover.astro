@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '@constants/site-config';
+import { getPostCover } from '@lib/content';
 import { getLqipStyle } from '@lib/lqip';
 import { Icon } from 'astro-icon/components';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -20,8 +21,10 @@ const { date, updated, title: dataTitle, draft } = data?.data ?? {};
 const readState = readingTime(data?.body ?? '');
 const isDraft = import.meta.env.DEV && draft === true;
 
+// 获取横幅图片
+const bannerImage = data ? getPostCover(data) : '/img/site_header_1920.webp';
 // 获取横幅图片的 LQIP 样式
-const bannerLqipStyle = getLqipStyle('/img/site_header_1920.webp');
+const bannerLqipStyle = getLqipStyle(bannerImage);
 ---
 
 <div class="relative flex h-[60dvh] max-h-200 overflow-hidden">
@@ -86,16 +89,15 @@ const bannerLqipStyle = getLqipStyle('/img/site_header_1920.webp');
   </div>
   <div
     class="relative -z-10 h-full min-h-60 w-full"
-    transition:persist="page-cover-banner"
     id="banner-box"
     style={bannerLqipStyle}
   >
     <img
-      src="/img/site_header_1920.webp"
+      src={bannerImage}
       alt="cover"
       class="h-full w-full object-cover"
       sizes="50vw"
-      srcset="/img/site_header_800.webp 800w,/img/site_header_1920.webp 1200w"
+      srcset={!data ? '/img/site_header_800.webp 800w,/img/site_header_1920.webp 1200w' : undefined}
       loading="eager"
       fetchpriority="high"
       decoding="async"

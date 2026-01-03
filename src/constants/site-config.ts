@@ -11,6 +11,11 @@ type SiteConfig = {
   site: string; // 站点线上域名 用于 RSS 生成等
   startYear?: number; // 站点创建年份
   keywords?: string[]; // 站点关键词 SEO
+  showCategories?: boolean; // 是否显示精选分类
+  beian?: {
+    icp?: string;
+    gongan?: string;
+  };
   featuredCategories?: {
     link: string;
     image: string;
@@ -66,41 +71,52 @@ type SocialConfig = {
 
 // https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/config/
 export const siteConfig: SiteConfig = {
-  title: '余弦の博客', // 网站名称
-  alternate: 'cosine', // 网站名称
-  subtitle: 'WA 的一声就哭了', // 副标题
-  name: 'cos', // 站点作者简称
-  description: '一个基于 Astro 的现代化博客主题', // 站点简介（一段话）
+  title: "Ming's Blog", // 网站名称
+  // alternate: 'Be The One', // 网站名称
+  subtitle: 'Talk is cheap, show me the code', // 副标题
+  name: 'gming', // 站点作者简称
+  description: 'AI/C/C++ notes', // 站点简介（一段话）
   avatar: '/img/avatar.webp', // 站点头像 - 请替换 public/img/avatar.webp
-  showLogo: true, // 是否显示 svg logo 否则用 title
-  author: 'Author', // 作者名称 - 请修改为你的名字
-  site: 'https://your-domain.com/', // 站点线上域名 - 部署后请修改
-  startYear: 2024, // 站点创建年份
-  keywords: ['博客', 'Astro', '技术', '前端'], // SEO 关键词
+  showLogo: false, // 是否显示 svg logo 否则用 title
+  author: 'gming', // 作者名称 - 请修改为你的名字
+  site: 'https://codeboom.top/', // 站点线上域名 - 部署后请修改
+  startYear: 2022, // 站点创建年份
+  keywords: ['博客', 'AI'], // SEO 关键词
+  showCategories: false, // 是否显示精选分类
+  beian: {
+    icp: '湘ICP备2024042516号-1',
+    gongan: '湘公网安备43040002000149',
+  },
   featuredCategories: [
     {
-      link: 'life',
-      label: '随笔',
+      link: 'ai',
+      label: '论文学习',
       image: '/img/cover/2.webp',
-      description: '生活记录、随想随笔',
+      description: '论文学习简要记录',
     },
     {
-      link: 'note',
-      label: '笔记',
+      link: 'math',
+      label: 'math',
       image: '/img/cover/4.webp',
-      description: '技术笔记、学习笔记',
+      description: '一些数学公式推导',
     },
     {
-      link: 'note/front-end',
-      label: '前端',
+      link: 'infra',
+      label: 'infra',
       image: '/img/cover/1.webp',
-      description: '前端技术相关',
+      description: '一些基础知识笔记',
     },
     {
       link: 'tools',
       label: '工具',
       image: '/img/cover/11.webp',
       description: '工具使用、效率提升',
+    },
+    {
+      link: 'reading-notes',
+      label: '读书笔记',
+      image: '/img/cover/11.webp',
+      description: '读书笔记记录',
     },
   ],
   featuredSeries: {
@@ -113,7 +129,7 @@ export const siteConfig: SiteConfig = {
 
 设置 enabled: false 可以关闭此功能。`,
     cover: '/img/weekly_header.webp',
-    enabled: true,
+    enabled: false,
     links: {
       github: 'https://github.com/your-username/your-repo',
       rss: '/rss.xml',
@@ -125,7 +141,7 @@ export const siteConfig: SiteConfig = {
 // 图标查询: https://icon-sets.iconify.design/ri/
 export const socialConfig: SocialConfig = {
   github: {
-    url: 'https://github.com/your-username', // 替换为你的 GitHub 链接
+    url: 'https://github.com/gmingyng', // 替换为你的 GitHub 链接
     icon: 'ri:github-fill',
     color: '#191717',
   },

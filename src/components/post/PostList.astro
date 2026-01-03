@@ -17,7 +17,6 @@ interface Props {
 }
 
 const { posts, page, showPaginator = true, baseUrl, isHomePage = false, isSimple = false } = Astro.props;
-const covers = shuffle(defaultCoverList);
 ---
 
 {
@@ -38,7 +37,6 @@ const covers = shuffle(defaultCoverList);
             data={post}
             showTags={!isSimple}
             leftClip={index % 2 === 0}
-            randomCover={covers[index % covers.length]}
             hideCover={isSimple}
             isSimple={isSimple}
           />
