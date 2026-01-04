@@ -1,6 +1,6 @@
 ---
-import { categoryMap } from '@constants/category';
 import type { Category } from '@lib/content';
+import { getCategorySlug } from '@lib/content';
 import CategoryTitle from './CategoryTitle.astro';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const { category, parentName, countMap } = Astro.props;
 
 function getCategoryLink(names: string[]): string {
-  return names.map((name) => categoryMap[name]).join('/');
+  return names.map((name) => getCategorySlug(name)).join('/');
 }
 ---
 
@@ -20,7 +20,7 @@ function getCategoryLink(names: string[]): string {
 <CategoryTitle
   title={category.name}
   count={countMap[category.name]}
-  href={`/categories/${categoryMap[parentName]}/${categoryMap[category.name]}`}
+  href={`/categories/${getCategorySlug(parentName)}/${getCategorySlug(category.name)}`}
   level="h3"
 />
 {

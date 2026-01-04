@@ -2,6 +2,7 @@
 import CustomContent from '@components/common/CustomContent.astro';
 import Remark from '@components/common/Remark.astro';
 import HomeSider from '@components/layout/HomeSider.astro';
+import PostCopyright from '@components/post/PostCopyright.astro';
 import SummaryPanel, { type SummarySource } from '@components/post/SummaryPanel';
 import Cover from '@components/ui/cover/Cover.astro';
 import { HomeSiderType } from '@constants/enum';
@@ -129,6 +130,7 @@ if (post.data.description) {
       <article class="prose md:prose-sm dark:prose-invert">
         <CustomContent Content={Content} />
       </article>
+      <PostCopyright title={title} url={Astro.url.toString()} />
       <Remark />
     </div>
   </TwoColumnLayout>

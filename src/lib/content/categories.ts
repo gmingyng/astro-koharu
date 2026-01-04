@@ -80,6 +80,15 @@ export function addCategoryRecursively(rootCategories: Category[], parentNames: 
 }
 
 /**
+ * Get slug for a category name
+ * @param name Category name
+ * @returns Slug
+ */
+export function getCategorySlug(name: string): string {
+  return categoryMap[name] || name.toLowerCase().replace(/\s+/g, '-');
+}
+
+/**
  * 获取分类完整链接
  * @param categories 分类
  * @param parentLink 父分类链接
@@ -89,7 +98,7 @@ export function getCategoryLinks(categories?: Category[], parentLink?: string): 
   if (!categories?.length) return [];
   const res: string[] = [];
   categories.forEach((category: Category) => {
-    const link = categoryMap[category.name];
+    const link = getCategorySlug(category.name);
     const fullLink = parentLink ? `${parentLink}/${link}` : link;
     res.push(fullLink);
     if (category?.children?.length) {
@@ -116,7 +125,7 @@ export function getCategoryNameByLink(link: string): string {
   if (segments.length === 0) return '';
 
   const lastSegment = segments[segments.length - 1];
-  const res = Object.keys(categoryMap).find((key) => categoryMap[key] === lastSegment) ?? '';
+  const res = Object.keys(categoryMap).find((key) => categoryMap[key] === lastSegment) ?? lastSegment;
   return res;
 }
 
@@ -124,11 +133,17 @@ export function getCategoryNameByLink(link: string): string {
  * Get category by link
  */
 export function getCategoryByLink(categories: Category[], link?: string): Category | null {
-  const name = getCategoryNameByLink(link ?? '');
-  if (!name || !categories?.length) return null;
+  if (!link || !categories?.length) return null;
+
+  const segments = link
+    .replace(/^\/+|\/+$/g, '')
+    .split('/')
+    .filter(Boolean);
+  const slug = segments[segments.length - 1];
+
   for (let i = 0; i < categories.length; ++i) {
     const category = categories[i];
-    if (category.name === name) {
+    if (getCategorySlug(category.name) === slug) {
       return category;
     }
     if (category?.children?.length) {
@@ -175,7 +190,7 @@ export function buildCategoryPath(categoryNames: string | string[]): string {
   const names = Array.isArray(categoryNames) ? categoryNames : [categoryNames];
   if (names.length === 0) return '';
 
-  const slugs = names.map((name) => categoryMap[name]);
+  const slugs = names.map((name) => getCategorySlug(name));
   return `/categories/${slugs.join('/')}`;
 }
 

@@ -9,7 +9,7 @@ tags:
   - linux
   - fork
 categories:
-  - infra
+  - Infra
 ---
 <h2>fork代码</h2>
 

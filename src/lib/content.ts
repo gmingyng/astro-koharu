@@ -14,6 +14,7 @@ export {
   getCategoryLinks,
   getCategoryList,
   getCategoryNameByLink,
+  getCategorySlug,
   getParentCategory,
 } from './content/categories';
 // Export post utilities

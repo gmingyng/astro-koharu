@@ -165,9 +165,9 @@ export default function Navigator({ currentPath }: NavigatorProps) {
   }, []);
 
   return (
-    <div className="flex grow tablet:grow-0 items-center">
+    <div className="flex grow tablet:grow-0 items-center justify-end gap-2">
       {/* Desktop navigation */}
-      <div className="flex tablet:hidden grow items-center">
+      <div className="flex tablet:hidden items-center">
         {routers.map((item) => {
           if (item.children?.length) {
             return <DropdownNav key={item.path ?? item.name} item={item} />;
@@ -182,7 +182,7 @@ export default function Navigator({ currentPath }: NavigatorProps) {
         })}
       </div>
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <SearchTrigger />
         <ThemeToggle />
       </div>

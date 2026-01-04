@@ -2,10 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
-import { categoryMap } from '@constants/category';
 import { Routes } from '@constants/router';
 import { siteConfig } from '@constants/site-config';
-import { type Category, getCategoryByLink, getCategoryList, getParentCategory, getPostsByCategory } from '@lib/content';
+import {
+  type Category,
+  getCategoryByLink,
+  getCategoryList,
+  getCategorySlug,
+  getParentCategory,
+  getPostsByCategory,
+} from '@lib/content';
 import { getLqipStyle } from '@lib/lqip';
 import { routeBuilder } from '@lib/route';
 import { cn } from '@lib/utils';
@@ -85,7 +91,7 @@ const categoryPosts: CategoryWithPosts[] = await Promise.all(
               {categoryInfo?.children?.length
                 ? categoryInfo.children.map((child) => (
                     <a
-                      href={categoryLink + '/' + categoryMap[child?.name]}
+                      href={categoryLink + '/' + getCategorySlug(child?.name)}
                       class="text-primary hover:text-blue truncate text-left transition-colors duration-300"
                     >
                       {child.name}

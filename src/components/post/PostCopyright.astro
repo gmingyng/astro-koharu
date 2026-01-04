@@ -1,0 +1,44 @@
+---
+import { siteConfig } from '@constants/site-config';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  url: string;
+  author?: string;
+}
+
+const { title, url, author = siteConfig.author || siteConfig.name } = Astro.props;
+---
+
+<div class="bg-muted/30 border-primary/20 my-8 rounded-lg border-l-4 p-4 text-sm transition-colors hover:bg-muted/50">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2 font-bold text-primary">
+      <Icon name="ri:copyright-line" class="h-4 w-4" />
+      <span>许可协议</span>
+    </div>
+    <div class="text-muted-foreground space-y-1">
+      <p>
+        <span class="font-medium text-foreground">本文作者：</span>
+        {author}
+      </p>
+      <p>
+        <span class="font-medium text-foreground">本文链接：</span>
+        <a href={url} class="hover:text-blue break-all underline decoration-dotted transition-colors">
+          {url}
+        </a>
+      </p>
+      <p>
+        <span class="font-medium text-foreground">版权声明：</span>
+        本文采用 <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-blue underline decoration-dotted transition-colors"
+        >
+          署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)
+        </a> 许可协议，转载请注明出处。
+      </p>
+    </div>
+  </div>
+</div>

@@ -63,7 +63,7 @@ const lqipProps = getLqipProps(finalCover);
         href={href}
         style={lqipProps.style}
         class={cn(
-          'md:clip-path-none relative h-46.5 max-h-46.5 w-[calc(50%-2rem)] overflow-hidden rounded-lg md:w-auto',
+          'md:clip-path-none relative h-60.45 max-h-60.45 w-[calc(50%-2rem)] overflow-hidden rounded-lg md:w-auto',
           leftClip ? 'clip-path-post-img-left order-1' : 'clip-path-post-img-right order-2',
           'md:clip-path-none md:order-0',
           lqipProps.class,
@@ -136,7 +136,7 @@ const lqipProps = getLqipProps(finalCover);
       </div>
     </div>
     <p
-      class={cn('text-muted-foreground line-clamp-3 h-15 text-sm md:h-auto md:max-h-15', {
+      class={cn('text-muted-foreground line-clamp-4 h-17 text-sm md:h-auto md:max-h-17', {
         'line-clamp-2 h-10 md:max-h-10': isSimple,
       })}
     >
@@ -146,8 +146,8 @@ const lqipProps = getLqipProps(finalCover);
       showTags && (
         <div
           class={cn(
-            '@container mt-1 flex gap-2',
-            hideCover ? 'justify-start' : { 'justify-end': !leftClip },
+            '@container mt-0 flex gap-2',
+            hideCover ? 'justify-start' : leftClip ? 'justify-start' : 'justify-end',
             'md:justify-start',
           )}
         >
@@ -175,26 +175,62 @@ const lqipProps = getLqipProps(finalCover);
     <a
       href={href}
       aria-label="more info"
-      class={cn('absolute -bottom-1', hideCover ? '-right-1' : leftClip ? '-right-1' : '-left-1', 'md:left-auto md:-right-1')}
+      class={cn(
+        'more-link absolute bottom-0 h-12 w-12 overflow-hidden rounded-br-lg',
+        hideCover ? 'right-0' : leftClip ? 'right-0' : 'left-0 rounded-br-none rounded-bl-lg',
+        'md:left-auto md:right-0 md:rounded-br-lg md:rounded-bl-none',
+      )}
     >
-      <Button
-        className={cn(
-          'bg-gradient-shoka-button rounded-2xl transition-all hover:translate-y-1 hover:scale-105 md:h-7 md:px-2 md:py-1 md:text-xs',
-          hideCover
-            ? 'rounded-se-none rounded-es-none hover:translate-x-1'
-            : leftClip
-              ? 'rounded-se-none rounded-es-none hover:translate-x-1'
-              : 'rounded-ss-none rounded-ee-none hover:-translate-x-1',
-          'md:rounded-ss-2xl md:rounded-se-none md:rounded-ee-2xl md:rounded-es-none md:hover:translate-x-1',
+      <div class="more-peel"></div>
+      <Icon
+        name="ri:arrow-right-line"
+        class={cn(
+          'more-arrow absolute z-10 h-6 w-6 text-white opacity-0 transition-all duration-500 ease-out',
+          hideCover ? 'right-1 bottom-[-20px]' : leftClip ? 'right-1 bottom-[-20px]' : 'left-1 bottom-[-20px] rotate-180',
+          'md:right-1 md:left-auto md:rotate-0',
         )}
-      >
-        more...
-      </Button>
+      />
     </a>
   </div>
 </div>
 
 <style>
+  .more-link .more-peel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shoka-button);
+    transition: all 0.4s ease-out;
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+  }
+
+  .more-link:hover .more-peel {
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
+  .more-link:hover .more-arrow {
+    opacity: 1;
+    bottom: 4px;
+  }
+
+  /* 处理左侧翻页效果 */
+  .more-link.left-0 .more-peel {
+    right: auto;
+    left: 0;
+    clip-path: polygon(0 100%, 0 100%, 0 100%);
+  }
+
+  .more-link.left-0:hover .more-peel {
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+  }
+
+  .more-link.left-0:hover .more-arrow {
+    opacity: 1;
+    bottom: 4px;
+  }
+
   /* 圣诞特效开启时的卡片样式 */
   :global(html.christmas) .post-item-card {
     position: relative;
