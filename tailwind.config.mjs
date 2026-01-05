@@ -111,7 +111,9 @@ export default {
       },
       fontFamily: {
         sans: ['寒蝉全圆体', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
-        'chill-round': ['寒蝉全圆体', 'sans-serif'],
+        // 'chill-round': ['寒蝉全圆体', 'sans-serif'],
+        'chill-round': ['Source Han Sans SC', 'sans-serif'], 
+
       },
       clipPath: {
         'post-img-left': 'polygon(0 0,92% 0%,100% 100%,0% 100%)',

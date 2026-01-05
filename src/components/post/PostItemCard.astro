@@ -63,7 +63,7 @@ const lqipProps = getLqipProps(finalCover);
         href={href}
         style={lqipProps.style}
         class={cn(
-          'md:clip-path-none relative h-60.45 max-h-60.45 w-[calc(50%-2rem)] overflow-hidden rounded-lg md:w-auto',
+          'md:clip-path-none relative z-1 h-46.5 max-h-46.5 w-[calc(50%-2rem)] overflow-hidden rounded-lg md:w-auto',
           leftClip ? 'clip-path-post-img-left order-1' : 'clip-path-post-img-right order-2',
           'md:clip-path-none md:order-0',
           lqipProps.class,
@@ -89,7 +89,10 @@ const lqipProps = getLqipProps(finalCover);
     <div class={cn('flex w-full justify-between', { 'order-2 justify-start gap-4 pb-3 md:pb-0': isSimple })}>
       {
         catalog === false ? null : (
-          <a href={categoryLink} class="flex-center hover:text-blue text-muted-foreground text-xs transition duration-300">
+          <a
+            href={categoryLink}
+            class="flex-center hover:text-blue text-muted-foreground relative z-1 text-xs transition duration-300"
+          >
             <Icon name="gg:flag" />
             {categoryStr}
           </a>
@@ -120,14 +123,14 @@ const lqipProps = getLqipProps(finalCover);
     </div>
     <div class="mt-1 flex flex-col space-y-1.5 p-0">
       <div class="flex items-center gap-2">
-        <a href={href} aria-label="post-link" class="min-w-0 flex-1"
+        <a href={href} aria-label="post-link" class="after:absolute after:inset-0 min-w-0 flex-1"
           ><h1 class="text-primary hover:text-blue line-clamp-1 truncate text-xl font-bold transition-colors duration-300">
             {title}
           </h1>
         </a>
         {
           isDraft && (
-            <Badge className="bg-yellow-700 border border-yellow-600/20 gap-1 text-white shrink-0 hover:bg-yellow-500 whitespace-nowrap transition-colors duration-300 ">
+            <Badge className="bg-yellow-700 border border-yellow-600/20 gap-1 text-white shrink-0 hover:bg-yellow-500 whitespace-nowrap transition-colors duration-300 relative z-1">
               <Icon name="fa6-solid:file-pen" class="h-3 w-3" />
               草稿
             </Badge>
@@ -136,7 +139,7 @@ const lqipProps = getLqipProps(finalCover);
       </div>
     </div>
     <p
-      class={cn('text-muted-foreground line-clamp-4 h-17 text-sm md:h-auto md:max-h-17', {
+      class={cn('text-muted-foreground line-clamp-4 h-13 text-sm md:h-auto md:max-h-13', {
         'line-clamp-2 h-10 md:max-h-10': isSimple,
       })}
     >
@@ -146,14 +149,14 @@ const lqipProps = getLqipProps(finalCover);
       showTags && (
         <div
           class={cn(
-            '@container mt-0 flex gap-2',
+            '@container mt-0 flex gap-2 relative z-1',
             hideCover ? 'justify-start' : leftClip ? 'justify-start' : 'justify-end',
             'md:justify-start',
           )}
         >
           {data?.data.tags?.length
             ? data?.data.tags.map((tag: string, index: number) => (
-                <a href={`/tags/${tag.toLowerCase().replace(/\//g, '-')}`}>
+                <a href={`/tags/${tag.toLowerCase().replace(/\//g, '-')}`} class="relative z-1">
                   <Badge
                     className={cn(
                       'hover:text-badge-primary/80 hidden cursor-pointer gap-0.5 border-none px-1 text-xs font-bold whitespace-nowrap transition-colors duration-300 @md:flex',
@@ -176,7 +179,7 @@ const lqipProps = getLqipProps(finalCover);
       href={href}
       aria-label="more info"
       class={cn(
-        'more-link absolute bottom-0 h-12 w-12 overflow-hidden rounded-br-lg',
+        'more-link absolute bottom-0 h-12 w-12 overflow-hidden rounded-br-lg z-1',
         hideCover ? 'right-0' : leftClip ? 'right-0' : 'left-0 rounded-br-none rounded-bl-lg',
         'md:left-auto md:right-0 md:rounded-br-lg md:rounded-bl-none',
       )}
@@ -185,7 +188,7 @@ const lqipProps = getLqipProps(finalCover);
       <Icon
         name="ri:arrow-right-line"
         class={cn(
-          'more-arrow absolute z-10 h-6 w-6 text-white opacity-0 transition-all duration-500 ease-out',
+          'more-arrow absolute z-1 h-6 w-6 text-white opacity-0 transition-all duration-500 ease-out',
           hideCover ? 'right-1 bottom-[-20px]' : leftClip ? 'right-1 bottom-[-20px]' : 'left-1 bottom-[-20px] rotate-180',
           'md:right-1 md:left-auto md:rotate-0',
         )}
